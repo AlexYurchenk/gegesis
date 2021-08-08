@@ -6,7 +6,6 @@ export default function ReviewsView({ id }) {
   useEffect(() => {
     movieAPI.fetchReviews(id).then((r) => setReviews(r.results));
   }, [id]);
-  console.log(reviews);
   if (reviews) {
     if (reviews.length === 0) {
       return <h3>no reviews</h3>;
@@ -14,7 +13,7 @@ export default function ReviewsView({ id }) {
     return (
       <ul>
         {reviews.map(({ author, content, id }) => (
-          <li id={id}>
+          <li key={id}>
             <h3>{author}</h3>
             <p>{content}</p>
           </li>

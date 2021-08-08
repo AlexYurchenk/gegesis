@@ -13,7 +13,7 @@ export default function TrendMovieView() {
       <ul>
         {trends &&
           trends.map(({ id, original_title, original_name }) => (
-            <li id={id}>
+            <li key={id}>
               <Link to={`/movies/${id}`}>
                 {original_title ? original_title : original_name}
               </Link>

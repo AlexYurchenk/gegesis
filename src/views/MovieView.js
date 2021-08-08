@@ -3,7 +3,7 @@ import * as movieAPI from "../services/services";
 import { useParams, Link, Route } from "react-router-dom";
 import CastView from "./CastView";
 import ReviewsView from "./ReviewsView";
-
+import imgDefault from "../images/movieDefault.png";
 const BASE_IMG_URL = "https://image.tmdb.org/t/p/w500/";
 export default function MovieView() {
   const params = useParams();
@@ -21,12 +21,16 @@ export default function MovieView() {
             {movie.release_date.slice(0, 4)}
           </h3>
           <p>User score {movie.vote_average}</p>
-          <img src={`${BASE_IMG_URL}${movie.backdrop_path}`} alt="" />
+          {movie.backdrop_path ? (
+            <img src={`${BASE_IMG_URL}${movie.backdrop_path}`} alt="" />
+          ) : (
+            <img src={imgDefault} alt="default" />
+          )}
           <p>Overview: {movie.overview}</p>
           <h3>Genres</h3>
           <ul>
             {movie.genres.map((genre) => (
-              <li id={genre.id}>{genre.name}</li>
+              <li key={genre.id}>{genre.name}</li>
             ))}
           </ul>
           <div>

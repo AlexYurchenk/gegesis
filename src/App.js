@@ -4,6 +4,7 @@ import ErrorView from "./components/ErrorView/ErrorView";
 import TrendMovieView from "./views/TrendMovieView";
 import { Route, Switch } from "react-router-dom";
 import MovieView from "./views/MovieView";
+import MovieSearch from "./views/MovieSearch";
 function App() {
   return (
     <div>
@@ -14,7 +15,7 @@ function App() {
             <TrendMovieView />
           </Route>
           <Route path="/movies" exact>
-            <h1>Я Фильмі </h1>
+            <MovieSearch />
           </Route>
           <Route path="/movies/:moviesId">
             <MovieView />
