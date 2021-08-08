@@ -58,4 +58,3 @@ export default function MovieView() {
     </div>
   );
 }
-//backdrop_path//release_date.

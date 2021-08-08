@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as movieAPI from "../services/services";
+import PropTypes from "prop-types";
 
 export default function ReviewsView({ id }) {
   const [reviews, setReviews] = useState(null);
@@ -24,3 +25,6 @@ export default function ReviewsView({ id }) {
 
   return <h3>No reviews</h3>;
 }
+ReviewsView.propTypes = {
+  id: PropTypes.number.isRequired,
+};

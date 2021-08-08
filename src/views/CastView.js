@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as movieAPI from "../services/services";
+import PropTypes from "prop-types";
 import imgDefault from "../images/35-350426_profile-icon-png-default-profile-picture-png-transparent.png";
 export default function CastView({ id, BASE_IMG_URL }) {
   const [cast, setCast] = useState(null);
@@ -28,3 +29,7 @@ export default function CastView({ id, BASE_IMG_URL }) {
     </ul>
   );
 }
+CastView.propTypes = {
+  id: PropTypes.number.isRequired,
+  BASE_IMG_URL: PropTypes.string.isRequired,
+};

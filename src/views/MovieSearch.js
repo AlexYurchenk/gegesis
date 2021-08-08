@@ -35,17 +35,21 @@ export default function MovieSearch() {
       </form>
       <ul>
         {searchList ? (
-          searchList.map(({ id, original_title, original_name }) => {
-            return (
-              <li key={id}>
-                <Link to={`/movies/${id}`}>
-                  {original_title ? original_title : original_name}
-                </Link>
-              </li>
-            );
-          })
+          searchList.length > 0 ? (
+            searchList.map(({ id, original_title, original_name }) => {
+              return (
+                <li key={id}>
+                  <Link to={`/movies/${id}`}>
+                    {original_title ? original_title : original_name}
+                  </Link>
+                </li>
+              );
+            })
+          ) : (
+            <h3>No Search</h3>
+          )
         ) : (
-          <h3>Ничего нет</h3>
+          <h3>Search something</h3>
         )}
       </ul>
     </>
