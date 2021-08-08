@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import * as movieAPI from "../services/services";
 import PropTypes from "prop-types";
+import Loader from "react-loader-spinner";
 
 export default function ReviewsView({ id }) {
   const [reviews, setReviews] = useState(null);
@@ -23,7 +24,15 @@ export default function ReviewsView({ id }) {
     );
   }
 
-  return <h3>No reviews</h3>;
+  return (
+    <Loader
+      type="Puff"
+      color="black"
+      height={100}
+      width={100}
+      timeout={1000} //3 secs
+    />
+  );
 }
 ReviewsView.propTypes = {
   id: PropTypes.number.isRequired,

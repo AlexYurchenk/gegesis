@@ -1,21 +1,52 @@
 import React, { useState, useEffect } from "react";
 import * as movieAPI from "../services/services";
-import { useParams, Link, Route } from "react-router-dom";
-import CastView from "./CastView";
-import ReviewsView from "./ReviewsView";
+import { lazy, Suspense } from "react";
+import Loader from "react-loader-spinner";
+
+import {
+  useParams,
+  Link,
+  Route,
+  useHistory,
+  useLocation,
+} from "react-router-dom";
+
 import imgDefault from "../images/movieDefault.png";
+const CastView = lazy(() =>
+  import("./CastView" /*webpackChunkName: "CastView"*/)
+);
+const ReviewsView = lazy(() =>
+  import("./ReviewsView" /*webpackChunkName: "ReviewsView"*/)
+);
 const BASE_IMG_URL = "https://image.tmdb.org/t/p/w500/";
 export default function MovieView() {
   const params = useParams();
   const id = Number(params.moviesId);
   const [movie, setMovie] = useState(null);
+  const location = useLocation();
+  const history = useHistory();
+  const goBack = () => {
+    history.push(location.state.from);
+  };
   useEffect(() => {
     movieAPI.fetchMovies(id).then(setMovie);
   }, [id]);
   return (
     <div>
+      {!movie && (
+        <Loader
+          type="Puff"
+          color="black"
+          height={100}
+          width={100}
+          timeout={1000} //3 secs
+        />
+      )}
       {movie && (
         <>
+          <button onClick={goBack} type="button">
+            Back
+          </button>
           <h3>
             {movie.original_title}
             {movie.release_date.slice(0, 4)}
@@ -46,12 +77,24 @@ export default function MovieView() {
           </div>
           <hr />
           <div>
-            <Route path={`/movies/${id}/cast`}>
-              <CastView BASE_IMG_URL={BASE_IMG_URL} id={id} />
-            </Route>
-            <Route path={`/movies/${id}/reviews`}>
-              <ReviewsView id={id} />
-            </Route>
+            <Suspense
+              fallback={
+                <Loader
+                  type="Puff"
+                  color="black"
+                  height={100}
+                  width={100}
+                  timeout={1000} //3 secs
+                />
+              }
+            >
+              <Route path={`/movies/${id}/cast`}>
+                <CastView BASE_IMG_URL={BASE_IMG_URL} id={id} />
+              </Route>
+              <Route path={`/movies/${id}/reviews`}>
+                <ReviewsView id={id} />
+              </Route>
+            </Suspense>
           </div>
         </>
       )}
