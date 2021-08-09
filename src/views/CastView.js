@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import * as movieAPI from "../services/services";
 import Loader from "react-loader-spinner";
+import { useHistory, useLocation } from "react-router-dom";
 
 import PropTypes from "prop-types";
 import imgDefault from "../images/35-350426_profile-icon-png-default-profile-picture-png-transparent.png";
@@ -9,6 +10,7 @@ export default function CastView({ id, BASE_IMG_URL }) {
   useEffect(() => {
     movieAPI.fetchCast(id).then((r) => setCast(r.cast));
   }, [id]);
+
   if (cast) {
     if (cast.length === 0) {
       return <h3>no cast</h3>;

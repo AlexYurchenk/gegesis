@@ -25,22 +25,38 @@ export default function MovieView() {
   const [movie, setMovie] = useState(null);
   const location = useLocation();
   const history = useHistory();
+  console.log(history);
   const goBack = () => {
-    history.push(location.state.from);
+    if (!location.state) {
+      history.push("/");
+    }
+    if (
+      location.pathname.includes("cast") ||
+      location.pathname.includes("reviews")
+    ) {
+      history.push(
+        `${location?.state?.from.from.pathname}${location.state.from.from.search}` ??
+          "/"
+      );
+      return;
+    }
+    history.push(location?.state?.from ?? "/");
   };
+
   useEffect(() => {
-    movieAPI.fetchMovies(id).then(setMovie);
+    if (movieAPI.fetchMovies(id)) {
+      movieAPI.fetchMovies(id).then(setMovie);
+    }
   }, [id]);
   return (
     <div>
       {!movie && (
-        <Loader
-          type="Puff"
-          color="black"
-          height={100}
-          width={100}
-          timeout={1000} //3 secs
-        />
+        <>
+          <button onClick={goBack} type="button">
+            Back
+          </button>
+          <h3>no movie</h3>
+        </>
       )}
       {movie && (
         <>
@@ -48,8 +64,7 @@ export default function MovieView() {
             Back
           </button>
           <h3>
-            {movie.original_title}
-            {movie.release_date.slice(0, 4)}
+            {movie.original_title} {movie.release_date.slice(0, 4)}
           </h3>
           <p>User score {movie.vote_average}</p>
           {movie.backdrop_path ? (
@@ -68,10 +83,28 @@ export default function MovieView() {
             <h3>Additional information</h3>
             <ul>
               <li>
-                <Link to={`/movies/${id}/cast`}>Cast</Link>
+                <Link
+                  to={{
+                    pathname: `/movies/${id}/cast`,
+                    state: {
+                      from: location.state,
+                    },
+                  }}
+                >
+                  Cast
+                </Link>
               </li>
               <li>
-                <Link to={`/movies/${id}/reviews`}>Reviews</Link>
+                <Link
+                  to={{
+                    pathname: `/movies/${id}/reviews`,
+                    state: {
+                      from: location.state,
+                    },
+                  }}
+                >
+                  Reviews
+                </Link>
               </li>
             </ul>
           </div>

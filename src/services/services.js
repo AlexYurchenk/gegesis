@@ -2,7 +2,10 @@ const BASE_URL = "https://api.themoviedb.org/3/";
 const API_KEY = "44d74a10460e9a32f8546bed31d47780";
 async function fetchWithErrorHandling(url = "", connfig = {}) {
   const response = await fetch(url, connfig);
-  return response.ok ? response.json() : Promise(new Error("Not Found"));
+  if (response.ok) {
+    return response.json();
+  }
+  return;
 }
 
 export function fetchTrend() {

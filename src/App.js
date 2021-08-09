@@ -6,6 +6,7 @@ import { withQuicklink } from "quicklink/dist/react/hoc.js";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 import { lazy, Suspense } from "react";
+
 const TrendMovieView = lazy(() =>
   import("./views/TrendMovieView" /*webpackChunkName: "TrendMovieView"*/)
 );
@@ -44,12 +45,12 @@ function App() {
               exact
             ></Route>
             <Route
-              path="/movies"
+              path={"/movies"}
               component={withQuicklink(MovieSearch, options)}
               exact
             ></Route>
             <Route
-              path="/movies/:moviesId"
+              path={"/movies/:moviesId"}
               component={withQuicklink(MovieView, options)}
             ></Route>
             <Route>
