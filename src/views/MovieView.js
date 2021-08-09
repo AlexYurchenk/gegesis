@@ -25,22 +25,20 @@ export default function MovieView() {
   const [movie, setMovie] = useState(null);
   const location = useLocation();
   const history = useHistory();
-  console.log(history);
+  let locationValue = location.state;
+  if (location.state) {
+    locationValue = location.state.from;
+  }
   const goBack = () => {
+    console.log(location);
+
     if (!location.state) {
       history.push("/");
-    }
-    if (
-      location.pathname.includes("cast") ||
-      location.pathname.includes("reviews")
-    ) {
-      history.push(
-        `${location?.state?.from.from.pathname}${location.state.from.from.search}` ??
-          "/"
-      );
       return;
     }
-    history.push(location?.state?.from ?? "/");
+    history.push(
+      `${location.state.from.pathname}${location.state.from.search}`
+    );
   };
 
   useEffect(() => {
@@ -87,7 +85,7 @@ export default function MovieView() {
                   to={{
                     pathname: `/movies/${id}/cast`,
                     state: {
-                      from: location.state,
+                      from: locationValue,
                     },
                   }}
                 >
@@ -99,7 +97,7 @@ export default function MovieView() {
                   to={{
                     pathname: `/movies/${id}/reviews`,
                     state: {
-                      from: location.state,
+                      from: locationValue,
                     },
                   }}
                 >

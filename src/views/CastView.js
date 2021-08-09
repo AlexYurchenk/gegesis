@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as movieAPI from "../services/services";
 import Loader from "react-loader-spinner";
-import { useHistory, useLocation } from "react-router-dom";
 
 import PropTypes from "prop-types";
 import imgDefault from "../images/35-350426_profile-icon-png-default-profile-picture-png-transparent.png";
