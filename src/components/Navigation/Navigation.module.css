@@ -1,23 +1,12 @@
-.NavigationNav {
-  padding-top: 20px;
-  padding-bottom: 20px;
-  display: flex;
-  align-items: center;
-  border-bottom: 3px solid black;
-}
-
-.NavigationNavItem {
-  border: 1px solid black;
-  border-radius: 5%;
-  color: black;
+.NavLink {
   text-decoration: none;
-  padding: 10px;
-  margin-right: 15px;
+  color: white;
+  font-weight: 800;
 }
-.NavigationNavItem:last-child {
-  margin-right: 0px;
+.Toolbar {
+  display: flex;
+  justify-content: space-between;
 }
-
-.NavigationNavItemActive {
-  color: red;
+.AppBar {
+  margin-bottom: 40px;
 }
